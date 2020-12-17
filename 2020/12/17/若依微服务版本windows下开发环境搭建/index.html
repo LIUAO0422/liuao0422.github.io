@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>若依微服务版本windows下开发环境搭建 | LIUAO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1.下载地址：https:&#x2F;&#x2F;gitee.com&#x2F;y_project&#x2F;RuoYi-Cloud 2.本地环境（仅供参考）  JDK1.8 Mysql 5.6.45 Redis 3.2.100 Maven 3.5.4 Node 10.15.3 Nacos 1.1.0  3.数据库配置 　　3.1创建数据库ry-cloud并导入数据脚本ry_2020520.sql（必须），quartz.sql（可选）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="若依微服务版本windows下开发环境搭建">
+<meta property="og:url" content="http://example.com/2020/12/17/%E8%8B%A5%E4%BE%9D%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%89%88%E6%9C%ACwindows%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="LIUAO">
+<meta property="og:description" content="1.下载地址：https:&#x2F;&#x2F;gitee.com&#x2F;y_project&#x2F;RuoYi-Cloud 2.本地环境（仅供参考）  JDK1.8 Mysql 5.6.45 Redis 3.2.100 Maven 3.5.4 Node 10.15.3 Nacos 1.1.0  3.数据库配置 　　3.1创建数据库ry-cloud并导入数据脚本ry_2020520.sql（必须），quartz.sql（可选）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520225747011-460006694.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520225936906-796866148.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520230040411-1328656079.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520230202099-1542590651.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520230915227-1256466148.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520231225195-628899639.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520231824067-353645288.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520232121127-1793383155.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233050925-528634958.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233402528-670440648.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233418812-1094561081.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233429902-433545767.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233607930-955622634.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233659854-2025828562.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233810479-1940425187.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233908528-295989602.png">
+<meta property="article:published_time" content="2020-12-17T09:33:50.000Z">
+<meta property="article:modified_time" content="2020-12-17T09:34:33.810Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520225747011-460006694.png">
+  
+    <link rel="alternate" href="/atom.xml" title="LIUAO" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">LIUAO</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-若依微服务版本windows下开发环境搭建" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/17/%E8%8B%A5%E4%BE%9D%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%89%88%E6%9C%ACwindows%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="article-date">
+  <time datetime="2020-12-17T09:33:50.000Z" itemprop="datePublished">2020-12-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      若依微服务版本windows下开发环境搭建
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.下载地址：<a target="_blank" rel="noopener" href="https://gitee.com/y_project/RuoYi-Cloud">https://gitee.com/y_project/RuoYi-Cloud</a></p>
+<p>2.本地环境（仅供参考）</p>
+<ul>
+<li>JDK1.8</li>
+<li>Mysql 5.6.45</li>
+<li>Redis 3.2.100</li>
+<li>Maven 3.5.4</li>
+<li>Node 10.15.3</li>
+<li>Nacos 1.1.0</li>
+</ul>
+<p>3.数据库配置</p>
+<p>　　3.1创建数据库ry-cloud并导入数据脚本ry_2020520.sql（必须），quartz.sql（可选） 如下：</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520225747011-460006694.png" alt="img"></p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520225936906-796866148.png" alt="img"></p>
+<p>　　3.2 创建数据库ry-config并导入数据脚本ry_config.sql（必须）如下：</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520230040411-1328656079.png" alt="img"></p>
+<p> 　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520230202099-1542590651.png" alt="img"></p>
+<p>4.Nacos配置</p>
+<p>　　4.1 持久化，修改conf/application.properties文件，增加如下代码</p>
+<p>　　</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.platform&#x3D;mysql</span><br><span class="line">db.num&#x3D;1</span><br><span class="line">db.url.0&#x3D;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;ry-config?characterEncoding&#x3D;utf8&amp;connectTimeout&#x3D;1000&amp;socketTimeout&#x3D;3000&amp;autoReconnect&#x3D;true</span><br><span class="line">db.user&#x3D;root</span><br><span class="line">db.password&#x3D;root #修改成自己数据库密码</span><br></pre></td></tr></table></figure>
+
+<p>　　4.2 双击bin下startup.cmd启动nacos，出现如下信息即启动成功：</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520230915227-1256466148.png" alt="img"></p>
+<p>　　4.3 打开浏览器访问：<a target="_blank" rel="noopener" href="http://localhost:8848/nacos/,%E5%87%BA%E7%8E%B0%E5%A6%82%E4%B8%8B%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2">http://localhost:8848/nacos/,出现如下登录页面</a></p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520231225195-628899639.png" alt="img"></p>
+<p>　　4.4 用户名/密码均为：nacos，登录如图：</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520231824067-353645288.png" alt="img"></p>
+<p> 　4.5 修改ruoyi-auth-dev.yml，ruoyi-system-dev.yml中数据库密码：</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520232121127-1793383155.png" alt="img"></p>
+<p> 5.Java项目运行</p>
+<p>　　5.1 项目导入Idea，并导入依赖，为防止端口 冲突将8080改为8081：</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233050925-528634958.png" alt="img"></p>
+<p>　　5.2 启动RuoYiGatewayApplication，RuoYiAuthApplication，RuoYiSystemApplication三个模块</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233402528-670440648.png" alt="img"></p>
+<p> 　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233418812-1094561081.png" alt="img"></p>
+<p> 　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233429902-433545767.png" alt="img"></p>
+<p> 6.前端页面项目运行</p>
+<p>　　6.1 执行npm install 安装依赖</p>
+<p>　　6.2 修改如下位置（之前为了冲突修改的端口）：</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233607930-955622634.png" alt="img"></p>
+<p>　　6.2 执行 npm run dev运行项目，如下图运行成功</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233659854-2025828562.png" alt="img"></p>
+<p> 　6.3 访问<a target="_blank" rel="noopener" href="http://localhost/">http://localhost:80/</a></p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233810479-1940425187.png" alt="img"></p>
+<p> 　6.4 输入验证码登录,至此本地开发环境搭建结束</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/1449109/202005/1449109-20200520233908528-295989602.png" alt="img"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/17/%E8%8B%A5%E4%BE%9D%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%89%88%E6%9C%ACwindows%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-id="ckisndorr00003kbnf171238c" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/12/16/SpringBoot%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SpringBoot笔记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/17/%E8%8B%A5%E4%BE%9D%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%89%88%E6%9C%ACwindows%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">若依微服务版本windows下开发环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/SpringBoot%E7%AC%94%E8%AE%B0/">SpringBoot笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/15/nginx%E7%AC%94%E8%AE%B0/">nginx笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/08/%E5%B8%B8%E7%94%A8Git%E5%91%BD%E4%BB%A4%E6%B8%85%E5%8D%95/">常用Git命令清单</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/07/%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%8C%E5%A4%A9/">培训第二天</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
