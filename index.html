@@ -64,6 +64,159 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-redis笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/23/redis%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2020-12-23T03:01:30.000Z" itemprop="datePublished">2020-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/23/redis%E7%AC%94%E8%AE%B0/">redis笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Redis是什么"><a href="#Redis是什么" class="headerlink" title="Redis是什么"></a>Redis是什么</h3><p>Redis是现在最受欢迎的NoSQL数据库之一，Redis是一个使用ANSI C编写的开源、包含多种数据结构、支持网络、基于内存、可选持久性的键值对存储数据库，其具备如下特性：</p>
+<ul>
+<li>基于内存运行，性能高效</li>
+<li>支持分布式，理论上可以无限扩展</li>
+<li>key-value存储系统</li>
+<li>开源的使用ANSI C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API</li>
+</ul>
+<p>相比于其他数据库类型，Redis具备的特点是：</p>
+<ul>
+<li>C/S通讯模型</li>
+<li>单进程单线程模型</li>
+<li>丰富的数据类型</li>
+<li>操作具有原子性</li>
+<li>持久化</li>
+<li>高并发读写</li>
+<li>支持lua脚本</li>
+</ul>
+<p>哪些大厂在使用Redis？</p>
+<ul>
+<li>github</li>
+<li>twitter</li>
+<li>微博</li>
+<li>Stack Overflow</li>
+<li>阿里巴巴</li>
+<li>百度</li>
+<li>美团</li>
+<li>搜狐</li>
+</ul>
+<h4 id="Redis的应用场景有哪些？"><a href="#Redis的应用场景有哪些？" class="headerlink" title="Redis的应用场景有哪些？"></a>Redis的应用场景有哪些？</h4><p>Redis 的应用场景包括：缓存系统（“热点”数据：高频读、低频写）、计数器、消息队列系统、排行榜、社交网络和实时系统。</p>
+<p> <img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126140856469-550683605.png" alt="img"></p>
+<h3 id="Redis的数据类型及主要特性"><a href="#Redis的数据类型及主要特性" class="headerlink" title="Redis的数据类型及主要特性"></a>Redis的数据类型及主要特性</h3><p>Redis提供的数据类型主要分为5种自有类型和一种自定义类型，这5种自有类型包括：String类型、哈希类型、列表类型、集合类型和顺序集合类型。</p>
+<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141006657-1969131669.png" alt="img"></p>
+<h4 id="String类型："><a href="#String类型：" class="headerlink" title="String类型："></a>String类型：</h4><p>它是一个二进制安全的字符串，意味着它不仅能够存储字符串、还能存储图片、视频等多种类型, 最大长度支持512M。</p>
+<p>对每种数据类型，Redis都提供了丰富的操作命令，如：</p>
+<ul>
+<li>GET/MGET</li>
+<li>SET/SETEX/MSET/MSETNX</li>
+<li>INCR/DECR</li>
+<li>GETSET</li>
+<li>DEL</li>
+</ul>
+<h4 id="哈希类型："><a href="#哈希类型：" class="headerlink" title="哈希类型："></a>哈希类型：</h4><p>该类型是由field和关联的value组成的map。其中，field和value都是字符串类型的。</p>
+<p>Hash的操作命令如下：</p>
+<ul>
+<li>HGET/HMGET/HGETALL</li>
+<li>HSET/HMSET/HSETNX</li>
+<li>HEXISTS/HLEN</li>
+<li>HKEYS/HDEL</li>
+<li>HVALS</li>
+</ul>
+<h4 id="列表类型："><a href="#列表类型：" class="headerlink" title="列表类型："></a>列表类型：</h4><p>该类型是一个插入顺序排序的字符串元素集合, 基于双链表实现。</p>
+<p>List的操作命令如下：</p>
+<ul>
+<li>LPUSH/LPUSHX/LPOP/RPUSH/RPUSHX/RPOP/LINSERT/LSET</li>
+<li>LINDEX/LRANGE</li>
+<li>LLEN/LTRIM</li>
+</ul>
+<h4 id="集合类型："><a href="#集合类型：" class="headerlink" title="集合类型："></a>集合类型：</h4><p>Set类型是一种无顺序集合, 它和List类型最大的区别是：集合中的元素没有顺序, 且元素是唯一的。</p>
+<p>Set类型的底层是通过哈希表实现的，其操作命令为：</p>
+<ul>
+<li>SADD/SPOP/SMOVE/SCARD</li>
+<li>SINTER/SDIFF/SDIFFSTORE/SUNION</li>
+</ul>
+<p>Set类型主要应用于：在某些场景，如社交场景中，通过交集、并集和差集运算，通过Set类型可以非常方便地查找共同好友、共同关注和共同偏好等社交关系。</p>
+<h4 id="顺序集合类型："><a href="#顺序集合类型：" class="headerlink" title="顺序集合类型："></a>顺序集合类型：</h4><p>ZSet是一种有序集合类型，每个元素都会关联一个double类型的分数权值，通过这个权值来为集合中的成员进行从小到大的排序。与Set类型一样，其底层也是通过哈希表实现的。</p>
+<p>ZSet命令：</p>
+<ul>
+<li>ZADD/ZPOP/ZMOVE/ZCARD/ZCOUNT</li>
+<li>ZINTER/ZDIFF/ZDIFFSTORE/ZUNION</li>
+</ul>
+<h3 id="Redis的数据结构"><a href="#Redis的数据结构" class="headerlink" title="Redis的数据结构"></a>Redis的数据结构</h3><p>Redis的数据结构如下图所示：</p>
+<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141027346-984159572.png" alt="img"></p>
+<p>关于上表中的部分释义：</p>
+<ol>
+<li>压缩列表是列表键和哈希键的底层实现之一。当一个列表键只包含少量列表项，并且每个列表项要么就是小整数，要么就是长度比较短的字符串，Redis就会使用压缩列表来做列表键的底层实现</li>
+<li>整数集合是集合键的底层实现之一，当一个集合只包含整数值元素，并且这个集合的元素数量不多时，Redis就会使用整数集合作为集合键的底层实现</li>
+</ol>
+<p>如下是定义一个Struct数据结构的例子：</p>
+<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141036706-1247302576.png" alt="img"></p>
+<h4 id="简单动态字符串SDS-Simple-Dynamic-String"><a href="#简单动态字符串SDS-Simple-Dynamic-String" class="headerlink" title="简单动态字符串SDS (Simple Dynamic String)"></a>简单动态字符串SDS (Simple Dynamic String)</h4><p>基于C语言中传统字符串的缺陷，Redis自己构建了一种名为简单动态字符串的抽象类型，简称SDS，其结构如下：</p>
+<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141052157-436992972.png" alt="img"></p>
+<p>SDS几乎贯穿了Redis的所有数据结构，应用十分广泛。</p>
+<h4 id="SDS的特点"><a href="#SDS的特点" class="headerlink" title="SDS的特点"></a>SDS的特点</h4><p>和C字符串相比，SDS的特点如下：</p>
+<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141103927-1852926069.png" alt="img"></p>
+<p>　　1. 常数复杂度获取字符串长度</p>
+<p>　　　　Redis中利用SDS字符串的len属性可以直接获取到所保存的字符串的长<br>　　　　度，直接将获取字符串长度所需的复杂度从C字符串的O(N)降低到了O(1)。</p>
+<p>　　2. 减少修改字符串时导致的内存重新分配次数</p>
+<p>　　　　通过C字符串的特性，我们知道对于一个包含了N个字符的C字符串来说，其底层实现总是N+1个字符长的数组（额外一个空字符结尾）</p>
+<p>　　　　那么如果这个时候需要对字符串进行修改，程序就需要提前对这个C字符串数组进行一次内存重分配（可能是扩展或者释放）　</p>
+<p>　　　　而内存重分配就意味着是一个耗时的操作。</p>
+<p>Redis巧妙的使用了SDS避免了C字符串的缺陷。在SDS中，buf数组的长度不一定就是字符串的字符数量加一，buf数组里面可以包含未使用的字节，而这些未使用的字节由free属性记录。</p>
+<p>与此同时，SDS采用了<strong>空间预分配</strong>的策略，避免C字符串每一次修改时都需要进行内存重分配的耗时操作，将内存重分配从原来的每修改N次就分配N次——&gt;降低到了修改N次最多分配N次。</p>
+<p>如下是Redis对SDS的简单定义：</p>
+<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141239967-123973180.png" alt="img"> </p>
+<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141253196-1200501061.png" alt="img"></p>
+<h3 id="Redis特性1：事务"><a href="#Redis特性1：事务" class="headerlink" title="Redis特性1：事务"></a>Redis特性1：事务</h3><ul>
+<li>命令序列化，按顺序执行</li>
+<li>原子性</li>
+<li>三阶段: 开始事务 - 命令入队 - 执行事务</li>
+<li>命令：MULTI/EXEC/DISCARD</li>
+</ul>
+<h3 id="Redis特性2：发布订阅-Pub-Sub"><a href="#Redis特性2：发布订阅-Pub-Sub" class="headerlink" title="Redis特性2：发布订阅(Pub/Sub)"></a>Redis特性2：发布订阅(Pub/Sub)</h3><ul>
+<li>Pub/sub是一种消息通讯模式</li>
+<li>Pub发送消息, Sub接受消息</li>
+<li>Redis客户端可以订阅任意数量的频道</li>
+<li>“fire and forgot”, 发送即遗忘</li>
+<li>命令：Publish/Subscribe/Psubscribe/UnSub</li>
+</ul>
+<p>　　<img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141305188-1053413990.png" alt="img"></p>
+<h3 id="Redis特性3：Stream"><a href="#Redis特性3：Stream" class="headerlink" title="Redis特性3：Stream"></a>Redis特性3：Stream</h3><ul>
+<li>Redis 5.0新增</li>
+<li>等待消费</li>
+<li>消费组(组内竞争)</li>
+<li>消费历史数据</li>
+<li>FIFO</li>
+</ul>
+<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141321299-1993625807.png" alt="img"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/23/redis%E7%AC%94%E8%AE%B0/" data-id="ckj0u0cl700009obn925gb61a" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-若依微服务版本windows下开发环境搭建" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/17/%E8%8B%A5%E4%BE%9D%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%89%88%E6%9C%ACwindows%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="article-date">
@@ -765,6 +918,10 @@
       <ul>
         
           <li>
+            <a href="/2020/12/23/redis%E7%AC%94%E8%AE%B0/">redis笔记</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/17/%E8%8B%A5%E4%BE%9D%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%89%88%E6%9C%ACwindows%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">若依微服务版本windows下开发环境搭建</a>
           </li>
         
@@ -778,10 +935,6 @@
         
           <li>
             <a href="/2020/12/08/%E5%B8%B8%E7%94%A8Git%E5%91%BD%E4%BB%A4%E6%B8%85%E5%8D%95/">常用Git命令清单</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/07/%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%8C%E5%A4%A9/">培训第二天</a>
           </li>
         
       </ul>
