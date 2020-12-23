@@ -115,9 +115,7 @@
 <li>搜狐</li>
 </ul>
 <h4 id="Redis的应用场景有哪些？"><a href="#Redis的应用场景有哪些？" class="headerlink" title="Redis的应用场景有哪些？"></a>Redis的应用场景有哪些？</h4><p>Redis 的应用场景包括：缓存系统（“热点”数据：高频读、低频写）、计数器、消息队列系统、排行榜、社交网络和实时系统。</p>
-<p> <img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126140856469-550683605.png" alt="img"></p>
 <h3 id="Redis的数据类型及主要特性"><a href="#Redis的数据类型及主要特性" class="headerlink" title="Redis的数据类型及主要特性"></a>Redis的数据类型及主要特性</h3><p>Redis提供的数据类型主要分为5种自有类型和一种自定义类型，这5种自有类型包括：String类型、哈希类型、列表类型、集合类型和顺序集合类型。</p>
-<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141006657-1969131669.png" alt="img"></p>
 <h4 id="String类型："><a href="#String类型：" class="headerlink" title="String类型："></a>String类型：</h4><p>它是一个二进制安全的字符串，意味着它不仅能够存储字符串、还能存储图片、视频等多种类型, 最大长度支持512M。</p>
 <p>对每种数据类型，Redis都提供了丰富的操作命令，如：</p>
 <ul>
@@ -157,20 +155,14 @@
 <li>ZINTER/ZDIFF/ZDIFFSTORE/ZUNION</li>
 </ul>
 <h3 id="Redis的数据结构"><a href="#Redis的数据结构" class="headerlink" title="Redis的数据结构"></a>Redis的数据结构</h3><p>Redis的数据结构如下图所示：</p>
-<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141027346-984159572.png" alt="img"></p>
 <p>关于上表中的部分释义：</p>
 <ol>
 <li>压缩列表是列表键和哈希键的底层实现之一。当一个列表键只包含少量列表项，并且每个列表项要么就是小整数，要么就是长度比较短的字符串，Redis就会使用压缩列表来做列表键的底层实现</li>
 <li>整数集合是集合键的底层实现之一，当一个集合只包含整数值元素，并且这个集合的元素数量不多时，Redis就会使用整数集合作为集合键的底层实现</li>
 </ol>
-<p>如下是定义一个Struct数据结构的例子：</p>
-<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141036706-1247302576.png" alt="img"></p>
 <h4 id="简单动态字符串SDS-Simple-Dynamic-String"><a href="#简单动态字符串SDS-Simple-Dynamic-String" class="headerlink" title="简单动态字符串SDS (Simple Dynamic String)"></a>简单动态字符串SDS (Simple Dynamic String)</h4><p>基于C语言中传统字符串的缺陷，Redis自己构建了一种名为简单动态字符串的抽象类型，简称SDS，其结构如下：</p>
-<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141052157-436992972.png" alt="img"></p>
 <p>SDS几乎贯穿了Redis的所有数据结构，应用十分广泛。</p>
-<h4 id="SDS的特点"><a href="#SDS的特点" class="headerlink" title="SDS的特点"></a>SDS的特点</h4><p>和C字符串相比，SDS的特点如下：</p>
-<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141103927-1852926069.png" alt="img"></p>
-<p>　　1. 常数复杂度获取字符串长度</p>
+<h4 id="SDS的特点"><a href="#SDS的特点" class="headerlink" title="SDS的特点"></a>SDS的特点</h4><p>　　1. 常数复杂度获取字符串长度</p>
 <p>　　　　Redis中利用SDS字符串的len属性可以直接获取到所保存的字符串的长<br>　　　　度，直接将获取字符串长度所需的复杂度从C字符串的O(N)降低到了O(1)。</p>
 <p>　　2. 减少修改字符串时导致的内存重新分配次数</p>
 <p>　　　　通过C字符串的特性，我们知道对于一个包含了N个字符的C字符串来说，其底层实现总是N+1个字符长的数组（额外一个空字符结尾）</p>
@@ -178,9 +170,6 @@
 <p>　　　　而内存重分配就意味着是一个耗时的操作。</p>
 <p>Redis巧妙的使用了SDS避免了C字符串的缺陷。在SDS中，buf数组的长度不一定就是字符串的字符数量加一，buf数组里面可以包含未使用的字节，而这些未使用的字节由free属性记录。</p>
 <p>与此同时，SDS采用了<strong>空间预分配</strong>的策略，避免C字符串每一次修改时都需要进行内存重分配的耗时操作，将内存重分配从原来的每修改N次就分配N次——&gt;降低到了修改N次最多分配N次。</p>
-<p>如下是Redis对SDS的简单定义：</p>
-<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141239967-123973180.png" alt="img"> </p>
-<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141253196-1200501061.png" alt="img"></p>
 <h3 id="Redis特性1：事务"><a href="#Redis特性1：事务" class="headerlink" title="Redis特性1：事务"></a>Redis特性1：事务</h3><ul>
 <li>命令序列化，按顺序执行</li>
 <li>原子性</li>
@@ -194,7 +183,6 @@
 <li>“fire and forgot”, 发送即遗忘</li>
 <li>命令：Publish/Subscribe/Psubscribe/UnSub</li>
 </ul>
-<p>　　<img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141305188-1053413990.png" alt="img"></p>
 <h3 id="Redis特性3：Stream"><a href="#Redis特性3：Stream" class="headerlink" title="Redis特性3：Stream"></a>Redis特性3：Stream</h3><ul>
 <li>Redis 5.0新增</li>
 <li>等待消费</li>
@@ -202,7 +190,6 @@
 <li>消费历史数据</li>
 <li>FIFO</li>
 </ul>
-<p><img src="https://img2018.cnblogs.com/blog/139239/201911/139239-20191126141321299-1993625807.png" alt="img"></p>
 
       
     </div>
