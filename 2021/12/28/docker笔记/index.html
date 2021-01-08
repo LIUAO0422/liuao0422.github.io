@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>docker笔记 | LIUAO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Docker是什么？ Docker是一个虚拟环境容器，可以将你的开发环境、代码、配置文件等一并打包到这个容器中，并发布和应用到任意平台中。比如，你在本地用Python开发网站后台，开发测试完成后，就可以将Python3及其依赖包、Flask及其各种插件、Mysql、Nginx等打包到一个容器中，然后部署到任意你想部署到的环境。 Docker官方文档比较全，建议有能力的读一下官方文档。 1. Doc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker笔记">
+<meta property="og:url" content="http://example.com/2021/12/28/docker%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="LIUAO">
+<meta property="og:description" content="Docker是什么？ Docker是一个虚拟环境容器，可以将你的开发环境、代码、配置文件等一并打包到这个容器中，并发布和应用到任意平台中。比如，你在本地用Python开发网站后台，开发测试完成后，就可以将Python3及其依赖包、Flask及其各种插件、Mysql、Nginx等打包到一个容器中，然后部署到任意你想部署到的环境。 Docker官方文档比较全，建议有能力的读一下官方文档。 1. Doc">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20191125173513948.png">
+<meta property="article:published_time" content="2021-12-28T13:21:47.000Z">
+<meta property="article:modified_time" content="2021-01-08T01:22:55.384Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20191125173513948.png">
+  
+    <link rel="alternate" href="/atom.xml" title="LIUAO" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">LIUAO</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-docker笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/12/28/docker%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2021-12-28T13:21:47.000Z" itemprop="datePublished">2021-12-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      docker笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Docker是什么？</p>
+<p>Docker是一个虚拟环境容器，可以将你的开发环境、代码、配置文件等一并打包到这个容器中，并发布和应用到任意平台中。比如，你在本地用Python开发网站后台，开发测试完成后，就可以将Python3及其依赖包、Flask及其各种插件、Mysql、Nginx等打包到一个容器中，然后部署到任意你想部署到的环境。</p>
+<p>Docker官方文档比较全，建议有能力的读一下<a href="https://link.zhihu.com/?target=https://docs.docker.com/">官方文档</a>。</p>
+<h2 id="1-Docker的三个概念"><a href="#1-Docker的三个概念" class="headerlink" title="1. Docker的三个概念"></a><strong>1. Docker的三个概念</strong></h2><ol>
+<li>镜像（Image）：类似于虚拟机中的镜像，是一个包含有文件系统的面向Docker引擎的只读模板。任何应用程序运行都需要环境，而镜像就是用来提供这种运行环境的。例如一个Ubuntu镜像就是一个包含Ubuntu操作系统环境的模板，同理在该镜像上装上Apache软件，就可以称为Apache镜像。</li>
+<li>容器（Container）：类似于一个轻量级的沙盒，可以将其看作一个极简的Linux系统环境（包括root权限、进程空间、用户空间和网络空间等），以及运行在其中的应用程序。Docker引擎利用容器来运行、隔离各个应用。容器是镜像创建的应用实例，可以创建、启动、停止、删除容器，各个容器之间是是相互隔离的，互不影响。注意：镜像本身是只读的，容器从镜像启动时，Docker在镜像的上层创建一个可写层，镜像本身不变。</li>
+<li>仓库（Repository）：类似于代码仓库，这里是镜像仓库，是Docker用来集中存放镜像文件的地方。注意与注册服务器（Registry）的区别：注册服务器是存放仓库的地方，一般会有多个仓库；而仓库是存放镜像的地方，一般每个仓库存放一类镜像，每个镜像利用tag进行区分，比如Ubuntu仓库存放有多个版本（12.04、14.04等）的Ubuntu镜像。</li>
+</ol>
+<p>关于镜像与容器的关系和联系，可以使用overlay2文件存储驱动来进一步深入理解，具体见<a target="_blank" rel="noopener" href="https://wiki.dm-ai.cn/x/bxv0Aw">文件存储驱动overlay2的使用介绍</a>。</p>
+<h2 id="2-1-Docker的安装和卸载"><a href="#2-1-Docker的安装和卸载" class="headerlink" title="2.1 Docker的安装和卸载"></a><strong>2.1 Docker的安装和卸载</strong></h2><p>Docker可以安装在Windows、Linux、Mac等各个平台上。具体可以查看文档<a target="_blank" rel="noopener" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1">Install Docker</a>。</p>
+<blockquote>
+<p>sudo apt install docker.io</p>
+</blockquote>
+<p>将当前用户添加到docker用户组中（否则就只能sudo执行Docker相关命令）</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker $USER2.</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>安装完成之后，可以查看Docker的版本信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker version&#96;&#96;Client:&#96;&#96; &#96;&#96;Version:   &#96;&#96;1.12&#96;&#96;.&#96;&#96;3&#96;&#96; &#96;&#96;API version: &#96;&#96;1.24&#96;&#96; &#96;&#96;Go version:  go1.&#96;&#96;6.3&#96;&#96; &#96;&#96;Git commit:  6b644ec&#96;&#96; &#96;&#96;Built:&#96;&#96; &#96;&#96;OS&#x2F;Arch:   linux&#x2F;amd64&#96; &#96;Server:&#96;&#96; &#96;&#96;Version:   &#96;&#96;1.12&#96;&#96;.&#96;&#96;3&#96;&#96; &#96;&#96;API version: &#96;&#96;1.24&#96;&#96; &#96;&#96;Go version:  go1.&#96;&#96;6.3&#96;&#96; &#96;&#96;Git commit:  6b644ec&#96;&#96; &#96;&#96;Built:&#96;&#96; &#96;&#96;OS&#x2F;Arch:   linux&#x2F;amd64</span><br><span class="line">查看Docker的帮助信息：# docker --help。各种命令的用法也不再赘述，后边用到哪些命令时会作出一定的解释。</span><br></pre></td></tr></table></figure>
+
+<p>如果你打算制作或者使用涉及到cuda或者cudnn等与GPU相关的镜像或容器，你需要安装nvidia-docker，请按照repo里的步骤安装nvidia-docker：<a target="_blank" rel="noopener" href="https://github.com/NVIDIA/nvidia-docker%E3%80%82">https://github.com/NVIDIA/nvidia-docker。</a></p>
+<p>在完成两步安装后，需要更改docker守护进程默认的runtime参数，请将<code>/etc/docker/daemon.json</code>文件中键<code>default-runtime</code>对应的值修改为<code>nvidia</code>(如果没有default-runtime这个key，则需要添加：”default-runtime”:”nvidia”)，</p>
+<p>然后通过<code>sudo service docker restart</code>重启docker服务，这一步操作是为了避免之后运行与cuda或者cudnn库相关的容器时每次都要指定<code>runtime</code>参数的情况。</p>
+<blockquote>
+<p>若要使用<strong>GPU nvidia时，需要安装nvidia-docker2</strong></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/quantum7/article/details/86416600">参考链接</a></p>
+<p>docker run -it -v /<a target="_blank" rel="noopener" href="http://gesture2/zhaohui/gesture2">path/to/project:/</a>path/to/project -v /path/to/dataset:/path/to/dataset docker-image:tag /bin/bash</p>
+<p>nvidia-docker run -it -v /<a target="_blank" rel="noopener" href="http://gesture2/zhaohui/gesture2">path/to/project:/</a>path/to/project -v /path/to/dataset:/path/to/dataset docker-image:tag /bin/bash</p>
+</blockquote>
+<h2 id="2-2-避免每次需要输入sudo"><a href="#2-2-避免每次需要输入sudo" class="headerlink" title="2.2 避免每次需要输入sudo"></a>2.2 避免每次需要输入sudo</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输入</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sudo groupadd docker</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 回显示groupadd: group &#x27;docker&#x27; already exists</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将docker账户给与权限</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sudo gpasswd -a &lt;你的用户名&gt; docker</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如：  sudo gpasswd -a ubuntu docker</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启docker</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sudo service docker restart</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Docker中关于镜像的基本操作"><a href="#3-Docker中关于镜像的基本操作" class="headerlink" title="3 Docker中关于镜像的基本操作"></a><strong>3 Docker中关于镜像的基本操作</strong></h3><p>安装完Docker引擎之后，就可以对镜像进行基本的操作了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看/etc/group,确定是否存在docker组</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cat /etc/group | grep docker</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装Docker后,docker组已经创建好了,上面的命令输出如下:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker:x:999:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将当前用户添加到 docker 组</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sudo gpasswd -a <span class="variable">$&#123;USER&#125;</span> docker</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新登录或者用以下命令切换到docker组</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">newgrp - docker</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启docker服务</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sudo service docker restart</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 不加sudo直接执行docker命令检查效果</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker images</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装Docker的时候拉取过hello-world镜像,所以输出如下:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">hello-world         latest              4ab4c602aa5e        8 weeks ago         1.84kB</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除none的镜像:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker ps -a | grep <span class="string">&quot;Exited&quot;</span> | awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> | xargs docker stop</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker ps -a | grep <span class="string">&quot;Exited&quot;</span> | awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> | xargs docker rm</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker images | grep none | awk <span class="string">&#x27;&#123;print $3&#125;&#x27;</span> | xargs docker rmi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除镜像</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker rmi -f image_ID</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果要退出就：</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Ctrl-D</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">root@af8bae53bdd3:/<span class="comment"># exit</span></span><br></pre></td></tr></table></figure>
+
+<p>我们从官方注册服务器（<a href="https://link.zhihu.com/?target=https://hub.docker.com">https://hub.docker.com</a>）的仓库中pull下CentOS的镜像(或者设置我们公司的镜像仓库，具体方式见本文第五节的介绍)。每个仓库会有多个镜像，用tag标示，如果不加tag，默认使用latest镜像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker search centos  # 查看centos镜像是否存在&#96;&#96;[root&#96;&#96;@xxx&#96; &#96;~]# docker pull centos  # 利用pull命令获取镜像&#96;&#96;Using &#96;&#96;default&#96; &#96;tag: latest&#96;&#96;latest: Pulling from library&#x2F;centos&#96;&#96;08d48e6f1cff: Pull complete&#96;&#96;Digest: sha256:b2f9d1c0ff5f87a4743104d099a3d561002ac500db1b9bfa02a783a46e0d366c&#96;&#96;Status: Downloaded newer image &#96;&#96;for&#96; &#96;centos:latest&#96; &#96;[root&#96;&#96;@xxx&#96; &#96;~]# docker images  # 查看当前系统中的images信息&#96;&#96;REPOSITORY   TAG      IMAGE ID    CREATED    SIZE&#96;&#96;centos     latest     0584b3d2cf6d  &#96;&#96;9&#96; &#96;days ago   &#96;&#96;196.5&#96; &#96;MB</span><br><span class="line">以上是下载一个已有镜像，此外有两种方法可以帮助你新建自有镜像。</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.1 docker删除容器和镜像</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">1、删除容器</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1）首先需要停止所有的容器</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker stop $(docker ps -a -q)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2）删除所有的容器（只删除单个时把后面的变量改为image id即可）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker rm $(docker ps -a -q)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2、删除镜像</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1）查看host中的镜像</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker images</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2）删除指定id的镜像</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker rmi &lt;image id&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">想要删除untagged images，也就是那些id为的image的话可以用</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker rmi $(docker images | grep <span class="string">&quot;^&quot;</span> | awk <span class="string">&quot;&#123;print <span class="variable">$3</span>&#125;&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">3）删除全部的images</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker rmi $(docker images -q)</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.2 利用镜像启动一个容器后进行修改 ==&gt; 利用commit提交更新后的副本</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker run -it centos:latest &#x2F;bin&#x2F;bash  # 启动一个容器&#96;&#96;[root&#96;&#96;@72f1a8a0e394&#96; &#96;&#x2F;]#  # 这里命令行形式变了，表示已经进入了一个新环境&#96;&#96;[root&#96;&#96;@72f1a8a0e394&#96; &#96;&#x2F;]# git --version  # 此时的容器中没有git&#96;&#96;bash: git: command not found&#96;&#96;[root&#96;&#96;@72f1a8a0e394&#96; &#96;&#x2F;]# yum install git  # 利用yum安装git&#96;&#96;......&#96;&#96;[root&#96;&#96;@72f1a8a0e394&#96; &#96;&#x2F;]# git --version  # 此时的容器中已经装有git了&#96;&#96;git version &#96;&#96;1.8&#96;&#96;.&#96;&#96;3.1</span><br><span class="line">此时利用exit退出该容器，然后查看docker中运行的程序（容器）：</span><br><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker ps -a&#96;&#96;CONTAINER ID IMAGE  COMMAND   CREATED  STATUS  PORTS  NAMES&#96;&#96;72f1a8a0e394 centos:latest &#96;&#96;&quot;&#x2F;bin&#x2F;bash&quot;&#96; &#96;9&#96; &#96;minutes ago  Exited (&#96;&#96;0&#96;&#96;) &#96;&#96;3&#96; &#96;minutes ago   angry_hodgkin</span><br></pre></td></tr></table></figure>
+
+<p>这里将容器转化为一个镜像，即执行commit操作，完成后可使用docker images查看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker commit -m &#96;&#96;&quot;centos with git&quot;&#96; &#96;-a &#96;&#96;&quot;panjinqan&quot;&#96; &#96;72f1a8a0e394 zhengwenyong&#x2F;centos:git&#96; &#96;[root&#96;&#96;@xxx&#96; &#96;~]# docker images&#96;&#96;REPOSITORY       TAG  IMAGE ID     CREATED       SIZE&#96;&#96;panjinqan&#x2F;centos  git  52166e4475ed   5&#96; &#96;seconds ago    &#96;&#96;358.1&#96; &#96;MB&#96;&#96;centos         latest 0584b3d2cf6d   &#96;&#96;9&#96; &#96;days ago     &#96;&#96;196.5&#96; &#96;MB</span><br><span class="line">其中，-m指定说明信息；-a指定用户信息；72f1a8a0e394代表容器的id；panjinquan&#x2F;centos:git指定目标镜像的用户名、仓库名和 tag 信息。注意这里的用户名zheng，后边会用到。</span><br></pre></td></tr></table></figure>
+
+<p>此时Docker引擎中就有了我们新建的镜像<code>panjinqan</code>/centos:git，此镜像和原有的CentOS镜像区别在于多了个Git工具。此时我们利用新镜像创建的容器，本身就自带git了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker run -it panjinqan&#x2F;centos:git &#x2F;bin&#x2F;bash&#96;&#96;[root&#96;&#96;@520afc596c51&#96; &#96;&#x2F;]# git --version&#96;&#96;git version &#96;&#96;1.8&#96;&#96;.&#96;&#96;3.1</span><br><span class="line">利用exit退出容器。注意此时Docker引擎中就有了两个容器，可使用docker ps -a查看。</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>3.3 利用Dockerfile创建镜像</strong></p>
+<p>Dockerfile可以理解为一种配置文件，用来告诉docker build命令应该执行哪些操作。一个简易的Dockerfile文件如下所示，官方说明：<a href="https://link.zhihu.com/?target=https://docs.docker.com/engine/reference/builder/">Dockerfile reference</a>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"># 说明该镜像以哪个镜像为基础</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">FROM centos:latest</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 构建者的基本信息</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MAINTAINER panjinqan</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 在build这个镜像时执行的操作</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">RUN yum update</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">RUN yum install -y git</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 拷贝本地文件到镜像中</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">COPY .&#x2F;* &#x2F;usr&#x2F;share&#x2F;gitdir&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>有了Dockerfile之后，就可以利用build命令构建镜像了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker build -t&#x3D;&quot;panjinqan&#x2F;centos:gitdir&quot;&#96; &#96;.</span><br><span class="line">其中-t用来指定新镜像的用户信息、tag等。最后的点表示在当前目录寻找Dockerfile。</span><br></pre></td></tr></table></figure>
+
+<p>构建完成之后，同样可以使用docker images命令查看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker images&#96;&#96;REPOSITORY       TAG    IMAGE ID   CREATED      SIZE&#96;&#96;panjinqan&#x2F;centos   gitdir  0749ecbca587 34&#96; &#96;minutes ago   &#96;&#96;359.7&#96; &#96;MB&#96;&#96;panjinqan&#x2F;centos   git    52166e4475ed About an hour ago 358.1&#96; &#96;MB&#96;&#96;centos         latest  0584b3d2cf6d &#96;&#96;9&#96; &#96;days ago     &#96;&#96;196.5&#96; &#96;MB</span><br><span class="line">以上就是构建自己镜像的两种方法。其中也涉及到了容器的一些操作。如果想删除容器或者镜像，可以使用rm命令，注意：删除镜像前必须先删除以此镜像为基础的容器。</span><br><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker rm container_name&#x2F;container_id&#96;&#96;[root&#96;&#96;@xxx&#96; &#96;~]# docker rmi image_name&#x2F;image_id</span><br></pre></td></tr></table></figure>
+
+<p>镜像其他操作指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker save -o centos.tar panjinqan&#x2F;centos:git  # 保存镜像, -o也可以是--output&#96;&#96;[root&#96;&#96;@xxx&#96; &#96;~]# docker load -i centos.tar  # 加载镜像, -i也可以是--input</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、Docker中关于容器的基本操作"><a href="#四、Docker中关于容器的基本操作" class="headerlink" title="四、Docker中关于容器的基本操作"></a><strong>四、Docker中关于容器的基本操作</strong></h2><p>在前边镜像的章节中，我们已经看到了如何基于镜像启动一个容器，即docker run操作。</p>
+<p><strong>(1)启动容器</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker run -it centos:latest &#x2F;bin&#x2F;bash</span><br><span class="line">这里-it是两个参数：-i和-t。前者表示打开并保持stdout，后者表示分配一个终端（pseudo-tty）。此时如果使用exit退出，则容器的状态处于Exit，而不是后台运行。如果想让容器一直运行，而不是停止，可以使用快捷键 ctrl+p ctrl+q 退出，此时容器的状态为Up。</span><br></pre></td></tr></table></figure>
+
+<p>除了这两个参数之外，run命令还有很多其他参数。其中比较有用的是-d后台运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker run centos:latest &#x2F;bin&#x2F;bash -c &#96;&#96;&quot;while true; do echo hello; sleep 1; done&quot;&#96;&#96;[root&#96;&#96;@xxx&#96; &#96;~]# docker run -d centos:latest &#x2F;bin&#x2F;bash -c &#96;&#96;&quot;while true; do echo hello; sleep 1; done&quot;</span><br><span class="line">这里第二条命令使用了-d参数，使这个容器处于后台运行的状态，不会对当前终端产生任何输出，所有的stdout都输出到log，可以使用docker logs container_name&#x2F;container_id查看。</span><br></pre></td></tr></table></figure>
+
+<p><strong>(2)docker run的其他参数命令如下：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-d, --detach&#x3D;&#96;&#96;false&#96;&#96;， 指定容器运行于前台还是后台，默认为&#96;&#96;false&#96;&#96;-i, --interactive&#x3D;&#96;&#96;false&#96;&#96;， 打开STDIN，用于控制台交互&#96;&#96;-t, --tty&#x3D;&#96;&#96;false&#96;&#96;， 分配tty设备，该可以支持终端登录，默认为&#96;&#96;false&#96;&#96;-u, --user&#x3D;&#96;&#96;&quot;&quot;&#96;&#96;， 指定容器的用户&#96;&#96;-a, --attach&#x3D;[]， 登录容器（必须是以docker run -d启动的容器）&#96;&#96;-w, --workdir&#x3D;&#96;&#96;&quot;&quot;&#96;&#96;， 指定容器的工作目录&#96;&#96;-c, --cpu-shares&#x3D;&#96;&#96;0&#96;&#96;， 设置容器CPU权重，在CPU共享场景使用&#96;&#96;-e, --env&#x3D;[]， 指定环境变量，容器中可以使用该环境变量&#96;&#96;-m, --memory&#x3D;&#96;&#96;&quot;&quot;&#96;&#96;， 指定容器的内存上限&#96;&#96;-P, --publish-all&#x3D;&#96;&#96;false&#96;&#96;， 指定容器暴露的端口&#96;&#96;-p, --publish&#x3D;[]， 指定容器暴露的端口&#96;&#96;-h, --hostname&#x3D;&#96;&#96;&quot;&quot;&#96;&#96;， 指定容器的主机名&#96;&#96;-v, --volume&#x3D;[]， 给容器挂载存储卷，挂载到容器的某个目录&#96;&#96;--volumes-from&#x3D;[]， 给容器挂载其他容器上的卷，挂载到容器的某个目录&#96;&#96;--cap-add&#x3D;[]， 添加权限，权限清单详见：http:&#96;&#96;&#x2F;&#x2F;linux.die.net&#x2F;man&#x2F;7&#x2F;capabilities&#96;&#96;--cap-drop&#x3D;[]， 删除权限，权限清单详见：http:&#96;&#96;&#x2F;&#x2F;linux.die.net&#x2F;man&#x2F;7&#x2F;capabilities&#96;&#96;--cidfile&#x3D;&#96;&#96;&quot;&quot;&#96;&#96;， 运行容器后，在指定文件中写入容器PID值，一种典型的监控系统用法&#96;&#96;--cpuset&#x3D;&#96;&#96;&quot;&quot;&#96;&#96;， 设置容器可以使用哪些CPU，此参数可以用来容器独占CPU&#96;&#96;--device&#x3D;[]， 添加主机设备给容器，相当于设备直通&#96;&#96;--dns&#x3D;[]， 指定容器的dns服务器&#96;&#96;--dns-search&#x3D;[]， 指定容器的dns搜索域名，写入到容器的&#x2F;etc&#x2F;resolv.conf文件&#96;&#96;--entrypoint&#x3D;&#96;&#96;&quot;&quot;&#96;&#96;， 覆盖image的入口点&#96;&#96;--env-file&#x3D;[]， 指定环境变量文件，文件格式为每行一个环境变量&#96;&#96;--expose&#x3D;[]， 指定容器暴露的端口，即修改镜像的暴露端口&#96;&#96;--link&#x3D;[]， 指定容器间的关联，使用其他容器的IP、env等信息&#96;&#96;--lxc-conf&#x3D;[]， 指定容器的配置文件，只有在指定--exec-driver&#x3D;lxc时使用&#96;&#96;--name&#x3D;&#96;&#96;&quot;&quot;&#96;&#96;， 指定容器名字，后续可以通过名字进行容器管理，links特性需要使用名字&#96;&#96;--net&#x3D;&#96;&#96;&quot;bridge&quot;&#96;&#96;， 容器网络设置:bridge 使用docker daemon指定的网桥&#96;&#96;host &#96;&#96;&#x2F;&#x2F;容器使用主机的网络&#96;&#96;container:NAME_or_ID &gt;&#96;&#96;&#x2F;&#x2F;使用其他容器的网路，共享IP和PORT等网络资源&#96;&#96;none 容器使用自己的网络（类似--net&#x3D;bridge），但是不进行配置&#96;&#96;--privileged&#x3D;&#96;&#96;false&#96;&#96;， 指定容器是否为特权容器，特权容器拥有所有的capabilities&#96;&#96;--restart&#x3D;&#96;&#96;&quot;no&quot;&#96;&#96;， 指定容器停止后的重启策略:no：容器退出时不重启&#96;&#96;on-failure：容器故障退出（返回值非零）时重启&#96;&#96;always：容器退出时总是重启&#96;&#96;--rm&#x3D;&#96;&#96;false&#96;&#96;， 指定容器停止后自动删除容器(不支持以docker run -d启动的容器)&#96;&#96;--sig-proxy&#x3D;&#96;&#96;true&#96;&#96;， 设置由代理接受并处理信号，但是SIGCHLD、SIGSTOP和SIGKILL不能被代理</span><br></pre></td></tr></table></figure>
+
+<p><strong>(3)启动、停止、重启容器命令：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker start container_name&#x2F;container_id&#96;&#96;[root&#96;&#96;@xxx&#96; &#96;~]# docker stop container_name&#x2F;container_id&#96;&#96;[root&#96;&#96;@xxx&#96; &#96;~]# docker restart container_name&#x2F;container_id</span><br><span class="line">后台启动一个容器后，如果想进入到这个容器，可以使用attach命令：</span><br><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker attach container_name&#x2F;container_id</span><br></pre></td></tr></table></figure>
+
+<p>删除容器的命令前边已经提到过了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker rm container_name&#x2F;container_id</span><br></pre></td></tr></table></figure>
+
+<h2 id=""><a href="#" class="headerlink" title=""></a><img src="https://img-blog.csdnimg.cn/20191125173513948.png" alt="img"></h2><p><strong>(4)挂载路径的方法:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -v /path/to/project:/path/to/project -v /path/to/dataset:/path/to/dataset  docker-image:tag</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用`pwd`表示当前路径</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker run --rm -it -v `<span class="built_in">pwd</span>`:/workspace data:cv2 /bin/bash</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对容器处理完的数据更改一下权限:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">chmod -R 1000:1000 &lt;要修改权限的文件或文件夹&gt;</span><br><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#  pip install --no-cache-dir -U polyaxon-client[gcs]==0.5.0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#  pip install --no-cache-dir -U memory_profiler</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#  pip install --no-cache-dir -U xmltodict</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># docker run -it -v /path/to/project:/path/to/project -v /path/to/dataset:/path/to/dataset docker-image:tag</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用`pwd`表示当前路径</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># docker run --rm -it -v `pwd`:/workspace data:cv2 /bin/bash</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对容器处理完的数据更改一下权限:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># chmod -R 1000:1000 &lt;要修改权限的文件或文件夹&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker run --rm -it \</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    -v `<span class="built_in">pwd</span>`:/workspace \</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    -v /data3/panjinquan/dataset:/data3/panjinquan/dataset \</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    docker.dm-ai.cn/algorithm-research/torch:torch1.3-cuda10.0-face-recognition-v3 \</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /bin/bash \</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<h2 id="五、Docker中关于仓库的基本操作"><a href="#五、Docker中关于仓库的基本操作" class="headerlink" title="五、Docker中关于仓库的基本操作"></a><strong>五、Docker中关于仓库的基本操作</strong></h2><p>Docker官方维护了一个DockerHub的公共仓库，里边包含有很多平时用的较多的镜像。除了从上边下载镜像之外，我们也可以将自己自定义的镜像发布（push）到DockerHub上。</p>
+<p>在镜像操作章节中，我们新建了一个<code>panjinqan</code>/centos:git镜像。</p>
+<p>（1）访问<a href="https://link.zhihu.com/?target=https://hub.docker.com/">https://hub.docker.com/</a>，如果没有账号，需要先注册一个。</p>
+<p>（2）利用命令docker login登录DockerHub，输入用户名、密码即可登录成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker login&#96;&#96;Login with your Docker ID to push and pull images from Docker Hub. If you don&#39;t have a Docker ID, head over to https:&#96;&#96;&#x2F;&#x2F;hub.docker.com to create one.&#96;&#96;Username: panjinqan&#96;&#96;Password:&#96;&#96;Login Succeeded</span><br><span class="line">将容器转换镜像:</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit -m &#96;&#96;&quot;Flask&quot;&#96; &#96;-a &quot;panjinqan&quot;&#96; &#96;container_id panjinqan&#x2F;flask:v1</span><br></pre></td></tr></table></figure>
+
+
+<p>（3）将本地的镜像推送到DockerHub上，这里的<code>panjinqan</code>要和登录时的username一致：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker push panjinqan&#x2F;centos:git  # 成功推送&#96;&#96;[root&#96;&#96;@xxx&#96; &#96;~]# docker push xxx&#x2F;centos:git  # 失败&#96;&#96;The push refers to a repository [docker.io&#x2F;xxx&#x2F;centos]&#96;&#96;unauthorized: authentication required</span><br><span class="line">此时若不一致的话可以使用tag的形式进行标记：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker tag mycentos:git panjinqan&#x2F;centos:git</span><br></pre></td></tr></table></figure>
+
+<p>（4）以后别人就可以从你的仓库中下载合适的镜像了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker pull panjinqan&#x2F;centos:git</span><br><span class="line">对应于镜像的两种创建方法，镜像的更新也有两种：</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建容器之后做更改，之后commit生成镜像，然后push到仓库中。</li>
+<li>更新Dockerfile。在工作时一般建议这种方式，更简洁明了。</li>
+</ul>
+<h3 id="配置公司docker仓库"><a href="#配置公司docker仓库" class="headerlink" title="配置公司docker仓库"></a><strong>配置公司docker仓库</strong></h3><p>DM docker仓库地址：<a target="_blank" rel="noopener" href="https://docker.dm-ai.cn/harbor/projects">https://docker.dm-ai.cn/harbor/projects</a></p>
+<p>研究中心的docker均放置于algorithm-research路径下</p>
+<p>修改~/.docker/config.json：（不存在此文件则需创建该文件）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#96;&#96;    &#96;&#96;&quot;auths&quot;&#96;&#96;: &#123;&#96;&#96;        &quot;panjinqan@docker.pjq.cn&quot;: &#123;&#96;&#96;            &#96;&#96;&quot;auth&quot;&#96;&#96;: &#96;&#96;&quot;emhlbmd3ZW55b25nOlp3eTE1OTU5NA&#x3D;&#x3D;&quot;&#96;&#96;        &#96;&#96;&#125;,&#96;&#96;        &#96;&#96;&quot;https:&#x2F;&#x2F;index.docker.io&#x2F;v1&#x2F;&quot;&#96;&#96;: &#123;&#96;&#96;            &#96;&#96;&quot;auth&quot;&#96;&#96;: &#96;&#96;&quot;emhlbmd3ZW55b25nOnp3eTE1OTU5NDk2NjI4&quot;&#96;&#96;        &#96;&#96;&#125;&#96;&#96;    &#96;&#96;&#125;,&#96;&#96;    &#96;&#96;&quot;HttpHeaders&quot;&#96;&#96;: &#123;&#96;&#96;        &#96;&#96;&quot;User-Agent&quot;&#96;&#96;: &#96;&#96;&quot;Docker-Client&#x2F;18.09.6 (linux)&quot;&#96;&#96;    &#96;&#96;&#125;&#96;&#96;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：上图中配置的是<code>panjinqan</code>的用户名及密码，需要重启服务并登出账户，然后使用自己的账户登录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service docker restart&#96;&#96;docker logout panjinqan@docker.pjq.cn&#96;&#96;docker login docker.dm-ai.cn</span><br></pre></td></tr></table></figure>
+
+<p>然后按照提示输入ldap账号和密码</p>
+<p>配置成功后便可以使用docker pull 和docker push对公司的镜像进行操作。</p>
+<h2 id="六、利用Docker创建一个用于Flask开发的Python环境"><a href="#六、利用Docker创建一个用于Flask开发的Python环境" class="headerlink" title="六、利用Docker创建一个用于Flask开发的Python环境"></a><strong>六、利用Docker创建一个用于Flask开发的Python环境</strong></h2><p>上边已经解释和练习了Docker的基本操作命令，下边以实例的形式完整走一遍流程。</p>
+<p>我们创建一个用于Flask开发的Python环境，包含Git、Python3、Flask以及其他依赖包等。</p>
+<p>完整命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root&#96;&#96;@xxx&#96; &#96;~]# docker pull centos&#96;&#96;[root&#96;&#96;@xxx&#96; &#96;~]# docker run -it centos:latest &#x2F;bin&#x2F;bash&#96;&#96;# 此时进入容器，安装Python3、Git、Flask及其依赖包等，安装完成后exit退出&#96;&#96;[root&#96;&#96;@xxx&#96; &#96;~]# docker commit -m &#96;&#96;&quot;Flask&quot;&#96; &#96;-a &quot;panjinqan&quot;&#96; &#96;container_id panjinqan&#x2F;flask:v1&#96;&#96;[root&#96;&#96;@xxx&#96; &#96;~]# docker push panjinqan&#x2F;flask:v1</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/28/docker%E7%AC%94%E8%AE%B0/" data-id="ckjnli3ps0000j8bn5ihr43iz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/12/25/vue%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">vue笔记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/12/28/docker%E7%AC%94%E8%AE%B0/">docker笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/25/vue%E7%AC%94%E8%AE%B0/">vue笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/23/redis%E7%AC%94%E8%AE%B0/">redis笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/17/%E8%8B%A5%E4%BE%9D%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%89%88%E6%9C%ACwindows%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">若依微服务版本windows下开发环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/SpringBoot%E7%AC%94%E8%AE%B0/">SpringBoot笔记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
